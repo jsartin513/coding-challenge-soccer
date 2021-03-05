@@ -1,8 +1,13 @@
-## The solution
+## The Solution
 
 To run the command line application, simply run `ruby generate_soccer_scores.rb` 
 
-This will read the scores from `sample-input.txt` and print resluts to `default-output.txt`.
+This will read the scores from `sample-input.txt` and output results to `default-output.txt`.
+
+
+To run unit tests, run
+`bundle install`
+`bundle exec rake spec`
 
 ## The Problem
 
@@ -40,31 +45,10 @@ the same number of points, they should have the same rank and be printed in
 alphabetical order. That said, at most three teams should be listed in the
 output per matchday.
 
-### Guidelines
-
-This should be implemented in a language with which you are familiar. We would
-prefer that you use ruby, javascript, typescript, or python, if you are
-comfortable doing so. If none of these are comfortable, please choose a
-language that is both comfortable for you and suited to the task.
-
-Your solution should be able to be run (and if applicable, built) from the
-command line. Please include appropriate scripts and instructions for
-running your application and your tests.
-
-If you use other libraries installed by a common package manager
-(rubygems/bundler, npm, pip, gradle), it is not necessary to commit the
-installed packages.
-
-We write automated tests and we would like you to do so as well.
-
-We appreciate clean and well factored designs.
-
-Anything that isn't explicitly specified or is unclear is up to you to
-decide.
 
 ### Platform support
 
-This will be run in a unix-ish environment (OS X). If you choose to use a
+This runs in a unix-ish environment (OS X). If you choose to use a
 compiled language, please keep this in mind. (Dependency on Xcode is acceptable
 for objective-c solutions) Please use platform-agnostic constructs where
 possible (line-endings and file-path-separators are two problematic areas).
