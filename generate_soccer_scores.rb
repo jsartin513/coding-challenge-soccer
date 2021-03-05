@@ -26,6 +26,10 @@ class SoccerScoreGenerator
 
         scores_for_today = {}
 
+        culmulative_scores = {}
+        day = 1
+        day_results = {}
+
         # assume in order for now, e.g.
         # each day happens before a new day starts
         all_games.each do |game|
@@ -43,6 +47,8 @@ class SoccerScoreGenerator
 
             if scores_for_today[team_1_name]
                 all_days << scores_for_today
+                day_results << {day: culmulative_scores}
+                day++
                 scores_for_today = {}
             end
 
@@ -50,18 +56,26 @@ class SoccerScoreGenerator
             if team_1_score == team_2_score
                 scores_for_today[team_1_name] = 1
                 scores_for_today[team_2_name] = 1
+                culmulative_scores[team_1_name] += 1
+                culmulative_scores[team_2_name] += 1
             elsif team_1_score > team_2_score
                 scores_for_today[team_1_name] = 3
+                culmulative_scores[team_1_name] += 3
                 scores_for_today[team_2_name] = 0
             else
                 scores_for_today[team_1_name] = 0
                 scores_for_today[team_2_name] = 3
+                culmulative_scores[team_2_name] += 3
             end      
         end
         # Get the last one, too!
         all_days << scores_for_today
-        all_days
+        all_days #old return
+
+        day_results << {day: culmulative_scores}
+        day_results
     end
+
 
     def write_File
     end
