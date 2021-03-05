@@ -1,3 +1,9 @@
+## The solution
+
+To run the command line application, simply run `ruby generate_soccer_scores.rb` 
+
+This will read the scores from `sample-input.txt` and print resluts to `default-output.txt`.
+
 ## The Problem
 
 We want you to create a command-line application that reads a listing of game
