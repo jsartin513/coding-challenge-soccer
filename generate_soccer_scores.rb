@@ -47,15 +47,27 @@ class SoccerScoreGenerator
 
             if scores_for_today[team_1_name]
                 all_days << scores_for_today
-                day_results << {day: culmulative_scores}
-                day++
+                day_results[day] = culmulative_scores
+                day += 1
                 scores_for_today = {}
             end
+
+            # TODO: Better error handling
+            unless culmulative_scores[team_1_name]
+                culmulative_scores[team_1_name] = 0
+            end
+
+            # TODO: Better error handling
+            unless culmulative_scores[team_2_name]
+                culmulative_scores[team_2_name] = 0
+            end
+            
 
             # TODO: Make this nicer looking
             if team_1_score == team_2_score
                 scores_for_today[team_1_name] = 1
                 scores_for_today[team_2_name] = 1
+                culmulative_scores[team_1_name] += 1
                 culmulative_scores[team_1_name] += 1
                 culmulative_scores[team_2_name] += 1
             elsif team_1_score > team_2_score
@@ -72,7 +84,7 @@ class SoccerScoreGenerator
         all_days << scores_for_today
         all_days #old return
 
-        day_results << {day: culmulative_scores}
+        day_results[day] = culmulative_scores
         day_results
     end
 
