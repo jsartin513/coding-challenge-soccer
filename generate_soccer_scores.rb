@@ -27,6 +27,7 @@ class SoccerScoreGenerator
         scores_for_today = {}
 
         culmulative_scores = {}
+        culmulative_scores.default = 0
         day = 1
         day_results = {}
 
@@ -37,29 +38,19 @@ class SoccerScoreGenerator
 
             team_1 = teams_scores[0]
             # TODO: remove last two chars
-            team_1_name = team_1[0..team_1.length - 2]
+            team_1_name = team_1[0..team_1.length - 3]
             team_1_score = team_1.chars[team_1.length - 1]
 
             team_2 = teams_scores[1]
             # TODO: remove last two chars
-            team_2_name = team_2[1..team_2.length - 2]
+            team_2_name = team_2[1..team_2.length - 3]
             team_2_score = team_2.chars[team_2.length - 1]
 
             if scores_for_today[team_1_name]
                 all_days << scores_for_today
-                day_results[day] = culmulative_scores
+                day_results[day] = Hash.new.merge(culmulative_scores)
                 day += 1
                 scores_for_today = {}
-            end
-
-            # TODO: Better error handling
-            unless culmulative_scores[team_1_name]
-                culmulative_scores[team_1_name] = 0
-            end
-
-            # TODO: Better error handling
-            unless culmulative_scores[team_2_name]
-                culmulative_scores[team_2_name] = 0
             end
             
 
@@ -67,7 +58,6 @@ class SoccerScoreGenerator
             if team_1_score == team_2_score
                 scores_for_today[team_1_name] = 1
                 scores_for_today[team_2_name] = 1
-                culmulative_scores[team_1_name] += 1
                 culmulative_scores[team_1_name] += 1
                 culmulative_scores[team_2_name] += 1
             elsif team_1_score > team_2_score
@@ -88,6 +78,18 @@ class SoccerScoreGenerator
         day_results
     end
 
+    def all_results
+        games_sorted_by_day.map do |day, scores|
+            top_scores = scores.sort_by { |team, score| [-score, team] }
+            {
+                title: "Matchday " + day.to_s,
+                winner: top_scores[0],
+                second: top_scores[1],
+                third: top_scores[2]
+            }   
+        end
+    end
+
 
     def write_File
     end
@@ -96,6 +98,6 @@ end
 
 if __FILE__ == $0
     # TODO: allow reading from file, stdin, etc
-    test_output = SoccerScoreGenerator.new.games_sorted_by_day
+    test_output = SoccerScoreGenerator.new.all_results
     print(test_output)
   end
